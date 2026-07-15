@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>🎮 Aventura Medieval</title>
+
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  background:black;
+  color:#f5e6b3;
+  overflow:hidden;
+  font-family:'Cinzel Decorative', serif;
+}
+
+/* audio oculto */
+audio{ display:none; }
+
+/* =========================
+   INICIO
+========================= */
+
+#inicio{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  background:url("IMG WEB/Mapa.jpg");
+  background-size:cover;
+  background-position:center;
+}
+
+h1{
+  font-family:'UnifrakturCook', cursive;
+  color:#d4af37;
+  text-shadow:2px 2px 12px black;
+}
+
+.mision{
+  margin-top:20px;
+  padding:18px;
+  border:2px solid #d4af37;
+  background:rgba(0,0,0,0.65);
+  max-width:500px;
+}
+
+/* BOTÓN */
+button{
+  padding:12px 20px;
+  border:2px solid gold;
+  background:#2a1b0e;
+  color:#f5e6b3;
+  cursor:pointer;
+}
+
+/* =========================
+   MAPA
+========================= */
+
+#mapa{
+  display:none;
+  position:relative;
+  width:100%;
+  height:100vh;
+
+  background:url("IMG WEB/mapa.jpg");
+  background-size:cover;
+  background-position:center;
+}
+
+.icono{
+  position:absolute;
+  font-size:60px;
+  cursor:pointer;
+}
+
+#castillo{ top:28%; left:55%; }
+#bosque{ top:60%; left:25%; }
+#aldea{ top:45%; left:75%; }
+
+/* =========================
+   CAJAS
+========================= */
+
+.box{
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:90%;
+  max-width:600px;
+  background:rgba(20,15,10,0.95);
+  border:3px solid gold;
+  padding:15px;
+  text-align:center;
+}
+
+/* vitral */
+.vitral-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:8px;
+}
+
+.vitral-grid img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border:2px solid gold;
+}
+
+/* botones */
+.cerrar{
+  margin-top:10px;
+  background:#3a2715;
+}
+
+<style>
+#botonContinuar {
+    background: linear-gradient(135deg, #ff4dff, #7a5cff);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 77, 255, 0.6);
+    transition: 0.3s;
+}
+
+#botonContinuar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 77, 255, 0.9);
+}
+</style>
+
+</style>
+
+</head>
+
+<body>
+  
+
+<!-- 🔊 CLICK -->
+<audio id="click" src="Audio/Korok.mp3"></audio>
+
+<!-- 🎵 MÚSICA -->
+<audio id="musica" loop>
+  <source src="Audio/Zelda.mp3" type="audio/mp3">
+</audio>
+
+<!-- 🎮 INICIO -->
+<div id="inicio">
+
+  <h1>📜  El Regalo del Reino Antiguo </h1>
+
+  <button onclick="iniciar()">Iniciar aventura</button>
+
+  <div class="mision" id="textoMision">
+    🏰 Atención! sé que es un día poco importante para ti, pero para mi sabes que desde que te conocí este día será y es de los más especiales, así que no ignores este detalle o te irá mal ..Ahora Ve al castillo y habla con la princesa.
+  </div>
+
+</div>
+
+<!-- 🗺️ MAPA -->
+<div id="mapa">
+
+  <div id="castillo" class="icono" onclick="irCastillo()">🏰</div>
+  <div id="bosque" class="icono" onclick="irBosque()">🌲</div>
+  <div id="aldea" class="icono" onclick="irAldea()">🏘️</div>
+
+</div>
+
+<!-- 🏰 CASTILLO -->
+<div id="castilloBox" class="box">
+
+  <h2>🏰 Castillo</h2>
+
+  <div class="vitral-grid">
+    <img src="Castillo/Castillo 1.jpg">
+    <img src="Castillo/Castillo 2.jpg">
+    <img src="Castillo/Castillo 3.jpg">
+  </div>
+
+  <p>📜
+  
+  
+ 
+ 
+  La princesa te recibirá...
+“Algo antiguo ha despertado en el bosque… una energía que no debería existir. Ve y averigua qué está pasando.”</p>
+
+  <!-- ✅ BOTÓN CERRAR AGREGADO -->
+  <button class="cerrar" onclick="cerrar()">Cerrar</button>
+</div>
+
+<!-- 🌲 BOSQUE -->
+<div id="bosqueBox" class="box">
+
+  <h2>🌲 Bosque</h2>
+
+<p>📜 🌿 “El bosque no está en silencio…”
+  Entre las raíces antiguas encuentras un brillo extraño, como si el suelo recordara algo perdido.”
+  “Al tocarlo, una voz suave susurra desde la tierra:”
+‘No busques más aquí… lo que buscas no nació en el bosque.’
+  “La energía te guía hacia un nuevo destino…”
+  “Debes ir a la aldea. Allí se oculta la verdad que el bosque no puede revelar </p>
+
+  
+
+  <audio controls src="Bosque/musica_bosque.mp3"></audio>
+
+  <button class="cerrar" onclick="cerrar()">Cerrar</button>
+</div>
+
+<!-- 🏘️ ALDEA -->
+<div id="aldeaBox" class="box">
+
+  <h2>🏘️ Aldea</h2>
+
+  <p>📜 Este es el final del camino por ahora, encontraste lo que disturbaba la paz, puedes pasar un feliz cumpleaños, puedes ver tu regalo, es algo sencillo pero con mucho amor, en este momento aún no sé si logré hacerlo bien pero si fue asi, estoy feliz si no, perdoname al menos tengo muchos momentos más para seguir dandote cositas, te amo, te amo mucho, recuerds siempre eso y ¡Feliz cupleaños mi guapo Pin Pon <3 .</p>
+
+  <p style="text-align:center; color:#ffd700; font-weight:bold; margin-top:20px;">
+💎 ¡Has reunido suficientes rupias! Ahora puedes abrir tu recompensa especial.
+</p>
+<button onclick="window.location.href='reino-musical.html'"
+style="padding:15px 30px;
+font-size:18px;
+background:#2e8b57;
+color:white;
+border:none;
+border-radius:12px;
+cursor:pointer;
+margin:15px;">
+💎 Reclamar recompensa
+</button>
+
+<br><br>
+
+<button class="cerrar" onclick="cerrar()">Cerrar</button>
+</div>
+
+<script>
+
+/* máquina de escribir */
+function escribirTexto(id, texto, velocidad = 35){
+  let i = 0;
+  let el = document.getElementById(id);
+  el.innerHTML = "";
+
+  function escribir(){
+    if(i < texto.length){
+      el.innerHTML += texto.charAt(i);
+      i++;
+      setTimeout(escribir, velocidad);
+    }
+  }
+  escribir();
+}
+
+/* iniciar */
+function iniciar(){
+  document.getElementById("click").play();
+
+  let musica = document.getElementById("musica");
+  musica.volume = 0.5;
+  musica.play();
+
+  document.getElementById("inicio").style.display = "none";
+  document.getElementById("mapa").style.display = "block";
+
+  escribirTexto("textoMision",
+  "🏰 Ve al Castillo y habla con la Reina.");
+}
+
+/* castillo */
+function irCastillo(){
+  document.getElementById("click").play();
+  abrir("castilloBox");
+
+  escribirTexto("textoMision",
+  "🌲 La Reina te envía al Bosque...");
+}
+
+/* bosque */
+function irBosque(){
+  document.getElementById("click").play();
+  abrir("bosqueBox");
+
+  escribirTexto("textoMision",
+  "🏘️ Ve a la Aldea...");
+}
+
+/* aldea */
+function irAldea(){
+  document.getElementById("click").play();
+  abrir("aldeaBox");
+
+  escribirTexto("textoMision",
+  "📜 Misión completada.");
+}
+
+/* abrir */
+function abrir(id){
+  document.querySelectorAll(".box")
+  .forEach(b => b.style.display = "none");
+
+  document.getElementById(id).style.display = "block";
+}
+
+/* cerrar */
+function cerrar(){
+  document.querySelectorAll(".box")
+  .forEach(b => b.style.display = "none");
+}
+
+</script>
+
+</body>
+</html>
+  

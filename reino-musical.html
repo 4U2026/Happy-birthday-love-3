@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reino Visual</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    font-family: 'Cinzel', serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #2b1d13, #4a3426);
+    color: #f5e6d3;
+    text-align: center;
+}
+
+/* monedas */
+#monedas {
+    font-size: 18px;
+    margin: 15px 0;
+    color: #ffe7b3;
+}
+
+/* lista */
+.lista {
+    max-width: 420px;
+    margin: auto;
+}
+
+/* TESOROS */
+.tesoro {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid #c9a66b;
+    border-radius: 10px;
+    height: 60px;
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tesoro:hover {
+    transform: scale(1.03);
+    background: rgba(201,166,107,0.12);
+    box-shadow: 0 0 15px rgba(255,215,120,0.25);
+}
+
+.tesoro.activo {
+    background: rgba(255,215,120,0.18);
+    box-shadow: 0 0 20px rgba(255,215,120,0.5);
+    transform: scale(1.06);
+}
+
+/* 🔮 MODAL CINEMÁTICO */
+#modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#modal video {
+    width: 85%;
+    max-width: 650px;
+    border: 2px solid #c9a66b;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(255,215,120,0.3);
+}
+
+/* 🌑 FADE FINAL */
+#fadeOut{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    z-index: 9999;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎬 Reino Musical</h1>
+
+<div id="monedas">Monedas: 10</div>
+
+<div class="lista">
+<div class="tesoro" onclick="usar(this, 'Reino/video1.mp4')">⚔️</div>
+<div class="tesoro" onclick="usar(this, 'Reino/video2.mp4')">💎</div>
+<div class="tesoro" onclick="usar(this, 'Reino/video3.mp4')">👑</div>
+<div class="tesoro" onclick="usar(this, 'Reino/video4.mp4')">🧿</div>
+<div class="tesoro" onclick="usar(this, 'Reino/video5.mp4')">🪙</div>
+<div class="tesoro" onclick="usar(this, 'Reino/video6.mp4')">📜</div>
+</div>
+
+<!-- 🔙 volver -->
+<button onclick="location.href='juego.html'" style="
+    font-size: 12px;
+    padding: 6px 10px;
+    margin-top: 15px;
+    opacity: 0.8;
+">
+⬅ Volver
+</button>
+
+<!-- ⚔ FINAL -->
+<button onclick="irAlFinal()" 
+style="
+    padding: 10px 18px;
+    font-size: 14px;
+    margin-top: 20px;
+    background: #5a3d2b;
+    color: white;
+    border: 1px solid #c9a66b;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.9;
+">
+Finalizar aventura
+</button>
+
+<!-- 🔮 MODAL VIDEO -->
+<div id="modal" onclick="cerrarVideo()">
+    <video id="videoPlayer" controls></video>
+</div>
+
+<!-- 🌑 fade -->
+<div id="fadeOut"></div>
+
+<script>
+
+let monedas = 10;
+
+/* usar tesoro */
+function usar(el, videoSrc) {
+
+    if (monedas <= 0) {
+        alert("❌ Sin energía del reino");
+        return;
+    }
+
+    monedas--;
+    document.getElementById("monedas").innerText = "Monedas: " + monedas;
+
+    el.classList.add("activo");
+
+    let modal = document.getElementById("modal");
+    let video = document.getElementById("videoPlayer");
+
+    video.src = videoSrc;
+    modal.style.display = "flex";
+    video.play();
+}
+
+/* cerrar modal */
+function cerrarVideo() {
+    let modal = document.getElementById("modal");
+    let video = document.getElementById("videoPlayer");
+
+    video.pause();
+    video.currentTime = 0;
+    modal.style.display = "none";
+}
+
+/* ⚔ FINAL SEGURO */
+function irAlFinal() {
+
+    const video = document.getElementById("videoPlayer");
+    const modal = document.getElementById("modal");
+
+    if (video) {
+        video.pause();
+        video.currentTime = 0;
+        video.src = "";
+    }
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+
+    // 🔊 sonido opcional
+    const sonido = new Audio("Audio/secret.mp3");
+    sonido.volume = 0.3;
+    sonido.play().catch(()=>{});
+
+    // 🌑 fade
+    document.getElementById("fadeOut").style.opacity = "1";
+
+    // ⏳ transición
+    setTimeout(() => {
+        window.location.href = "fin.html";
+    }, 1200);
+}
+
+</script>
+
+</body>
+</html>
